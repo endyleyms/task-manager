@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
+import Sidebar from "./components/Organism/Sidebar";
+import Home from "./pages/Home";
 
 function App() {
 
   return (
-    <>
-      <div className='mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10'>
-        <div>
-          <div className="text-xl font-medium text-black dark:text-white">ChitChat</div>
-          <p className="text-gray-500 dark:text-gray-400">You have a new message!</p>
-        </div>
+    <BrowserRouter>
+      <div className="flex">
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" />
+          <Route path="/chat" />
+        </Routes>
       </div>
+    </BrowserRouter>
 
-    </>
   )
 }
 
