@@ -8,14 +8,13 @@ import CrudProject from '../Molecules/CrudProject';
 import CrudTask from '../Molecules/Crudtask';
 
 interface props {
-  onEdit: () => void,
-  onNewTask: () => void,
-  project: Project
+  project: Project;
+  filter: string;
+  setFilter: (val: string) => void;
 
 }
 
-export default function Header({ onEdit, onNewTask, project }: props) {
-  const [filter, setFilter] = useState("");
+export default function Header({ project, filter, setFilter }: props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenTask, setIsModalOpenTask] = useState(false);
 
