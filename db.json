@@ -1,0 +1,36 @@
+{
+  "Projects":[
+    {
+      "id": 1,
+      "name": "Proyecto 1",
+      "tasks": [
+        {
+          "id": "1",
+          "title": "Llamar al cliente",
+          "description": "Confirmar reunión",
+          "dueDate": "2025-05-20",
+          "status": "pending",
+          "priority": "medium"
+        },
+        {
+          "id": "2",
+          "title": "Enviar informe",
+          "dueDate": "2025-05-15",
+          "status": "completed",
+          "priority": "high"
+        },
+        {
+          "id": "3",
+          "title": "Revisar presupuesto",
+          "status": "pending",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Proyecto 2",
+      "tasks": []
+    }
+  ]
+}

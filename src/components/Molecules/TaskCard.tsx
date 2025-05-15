@@ -40,9 +40,9 @@ export default function TaskCard({
   onDelete,
 }: props) {
   return (
-    <div className="bg-white rounded-xl shadow-md w-[310px] h-[150px] border border-gray-200 flex flex-col gap-4 items-center">
+    <div className="bg-white rounded-xl shadow-md w-[290px] h-[150px] border border-gray-200 flex flex-col gap-4 items-center">
       <div className="w-full">
-        <Typography text={title} tag="h3" color="indigo" />
+        <Typography text={title} tag="h3" color="blue" />
 
         {description && <Typography text={description} color="blue" />}
 

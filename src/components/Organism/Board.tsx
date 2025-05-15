@@ -1,39 +1,22 @@
+import type { Task } from "../../context/ProjectContextType";
 import TaskColumn from "../Molecules/TaskColumn";
 
-const tasks: {
-  id: string;
-  title: string;
-  description?: string;
-  dueDate?: string;
-  status: "pending" | "completed";
-  priority: "low" | "medium" | "high";
-}[] = [
-    {
-      id: "1",
-      title: "Llamar al cliente",
-      description: "Confirmar reunión",
-      dueDate: "2025-05-20",
-      status: "pending",
-      priority: "medium",
-    },
-    {
-      id: "2",
-      title: "Enviar informe",
-      dueDate: "2025-05-15",
-      status: "completed",
-      priority: "high",
-    },
-    {
-      id: "3",
-      title: "Revisar presupuesto",
-      status: "pending",
-      priority: "low",
-    },
-  ];
 
-export default function Board() {
+interface props {
+  tasks: Task[];
+}
+
+export default function Board({ tasks }: props) {
   const pending = tasks.filter((t) => t.status === "pending");
   const completed = tasks.filter((t) => t.status === "completed");
+
+  if (tasks.length === 0) {
+    return (
+      <div className="w-[90%] text-center text-gray-500 py-10">
+        There are no tasks assigned to this project.
+      </div>
+    );
+  }
 
   return (
     <div className="flex gap-6 overflow-auto w-[90%]">

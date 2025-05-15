@@ -1,16 +1,17 @@
-// components/organisms/Header.tsx
 import Typography from '../Atom/Typography';
 import ButtonUi from '../Atom/ButtonUi';
 import { useState } from 'react';
 import Select from './Select';
+import type { Project } from '../../context/ProjectContextType';
 
 interface props {
   onEdit: () => void,
-  onNewTask: () => void
+  onNewTask: () => void,
+  project: Project
 
 }
 
-export default function Header({ onEdit, onNewTask }: props) {
+export default function Header({ onEdit, onNewTask, project }: props) {
   const [filter, setFilter] = useState("");
 
 
@@ -28,10 +29,10 @@ export default function Header({ onEdit, onNewTask }: props) {
   return (
     <header className="w-full h-[50px] bg-white shadow-md flex items-center justify-between px-0">
       <div className="w-full flex items-center justify-evenly">
-        <Typography text="Project 1" tag="h2" color="black" />
-        <div className="flex gap-3 w-[10%]">
+        <Typography text={project.name ?? "Proyecto"} tag="h2" color="black" />
+        <div className="flex gap-3 w-[15%]">
           <ButtonUi onClick={onEdit} title="Edit" />
-          <ButtonUi onClick={onNewTask} title="Nueva" type="secondary" />
+          <ButtonUi onClick={onNewTask} title="New Task" type="secondary" />
         </div>
         <Select
           label="Filter"

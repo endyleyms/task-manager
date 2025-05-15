@@ -19,7 +19,7 @@ export default function TaskColumn({ title, tasks }: TaskColumnProps) {
   return (
     <div className="flex flex-col w-full items-center bg-gray-100 rounded-lg shadow-md min-h-[400px] gap-4">
       <Typography text={title} tag="h2" color="blue" />
-      <div className="w-[80%] flex flex-col gap-4 overflow-y-auto max-h-[600px]">
+      <div className="w-[80%] h-full flex flex-col gap-4 overflow-y-auto">
         {tasks.map((task) => (
           <TaskCard key={task.id} {...task} />
         ))}
