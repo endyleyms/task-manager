@@ -15,14 +15,14 @@ interface props {
 }
 
 const getStatusColor = (status: Status) =>
-  status === "completed" ? "text-green-600" : "text-yellow-600";
+  status === "completed" ? "text-green-600" : "text-yellow-500";
 
 const getPriorityColor = (priority: Priority) => {
   switch (priority) {
     case "low":
-      return "text-green-500";
+      return "text-green-600";
     case "medium":
-      return "text-yellow-500";
+      return "text-yellow-600";
     case "high":
       return "text-red-500";
     default:
@@ -40,36 +40,58 @@ export default function TaskCard({
   onDelete,
 }: props) {
   return (
-    <div className="bg-white rounded-xl shadow-md w-[290px] h-[150px] border border-gray-200 flex flex-col gap-4 items-center">
-      <div className="w-full">
-        <Typography text={title} tag="h3" color="blue" />
-
-        {description && <Typography text={description} color="blue" />}
-
-        {dueDate && (
-          <p className="text-sm text-gray-500 mb-1">
-            <span className="font-medium">Due:</span> {dueDate}
-          </p>
+    <div className="bg-white rounded-2xl shadow-lg w-[300px] h-[170px] border border-gray-100 px-4 py-3 flex flex-col justify-between hover:shadow-xl transition-shadow">
+      {/* Título y descripción */}
+      <div>
+        <Typography
+          text={title}
+          tag="h3"
+          className="text-lg font-semibold text-indigo-700 mb-1"
+        />
+        {description && (
+          <Typography
+            text={description}
+            className="text-sm text-gray-600 mb-2"
+          />
         )}
 
-        <div className="flex items-center justify-center gap-4 mt-2">
-          <span className={`text-sm font-medium ${getStatusColor(status)}`}>
-            {status}
-          </span>
-
-          <span className={`text-sm font-medium ${getPriorityColor(priority)}`}>
-            {priority}
-          </span>
-        </div>
+        {/* Fecha */}
+        {dueDate && (
+          <p className="text-sm text-gray-400">
+            <span className="font-medium text-gray-500">Due:</span> {dueDate}
+          </p>
+        )}
       </div>
 
-      <div className="w-full flex items-center justify-center" >
-        <div className="flex w-1/2 justify-center items-center  gap-2">
-          <ButtonUi onClick={onEdit} title="Edit" type="secondary" />
-          <ButtonUi onClick={onDelete} title="Delete" type="outline" />
+      {/* Estado y prioridad */}
+      <div className="flex items-center justify-evenly mt-2">
+        <span className={`text-sm font-semibold capitalize ${getStatusColor(status)}`}>
+          {status}
+        </span>
+        <span className={`text-sm font-semibold capitalize ${getPriorityColor(priority)}`}>
+          {priority}
+        </span>
+      </div>
+
+      {/* Botones */}
+      <div className="flex justify-center">
+        <div className="flex items-center justify-evenly mt-2 w-2/3 gap-3">
+          <ButtonUi
+            onClick={onEdit}
+            title="Edit"
+            type="secondary"
+            className="text-indigo-600 border-indigo-600 hover:bg-indigo-50"
+          />
+          <ButtonUi
+            onClick={onDelete}
+            title="Delete"
+            type="outline"
+            className="text-red-500 border-red-400 hover:bg-red-50"
+          />
         </div>
       </div>
     </div>
+
 
   );
 }

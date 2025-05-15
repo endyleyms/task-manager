@@ -24,16 +24,17 @@ export default function Sidebar() {
 
 
   return (
-    <div className="w-[13%] h-full bg-gradient-to-b from-blue-900 to-blue-500 text-white fixed top-0 left-0 shadow-xl flex flex-col justify-between border-r border-purple-700 gap-y-10">
+    <div className="w-[15%] h-full bg-white text-gray-800 fixed top-0 left-0 shadow-xl flex flex-col justify-between border-r border-gray-200 py-6 px-4">
       <div className="flex flex-col gap-4">
-        <div className="mb-10 text-center">
+        <div className="text-center mb-6">
           <Typography
             text="Task Manager"
             tag="h2"
-            className="text-2xl font-semibold text-white tracking-wide"
+            className="text-xl font-bold text-primary"
           />
         </div>
-        <nav className="flex flex-col gap-3">
+
+        <nav className="flex flex-col gap-2">
           {projectList.map((project, index) => {
             const isActive = location.pathname === project.path;
 
@@ -41,25 +42,40 @@ export default function Sidebar() {
               <Link
                 key={index}
                 to={project.path}
-                className={`px-4 py-2 rounded-lg transition duration-200 ${isActive ? "bg-blue-700 font-semibold" : "hover:bg-blue-700"}`} >
-                {project.name}
+                className={`px-4 py-2 rounded-lg transition duration-200 font-medium ${isActive
+                  ? 'bg-indigo-100 text-indigo-600'
+                  : 'hover:bg-indigo-50 text-gray-700'
+                  }`}
+              >
+                📁 {project.name}
               </Link>
             );
           })}
         </nav>
-        <ButtonUi
-          title="➕ New"
-          onClick={() => setIsModalOpen(true)}
-          type="secondary"
-        />
+
+        {/* Button */}
+        <div className="mt-4 items-center flex justify-center">
+          <div className="w-1/2">
+            <ButtonUi
+              title="➕ New"
+              onClick={() => setIsModalOpen(true)}
+              type="secondary"
+            />
+          </div>
+        </div>
+
+        {/* Modal */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New Project">
           <NewProject />
         </Modal>
       </div>
-      <div className="text-sm text-white text-center">
+
+      {/* Footer */}
+      <div className="text-xs text-gray-400 text-center mt-auto">
         © 2025 MyTask
       </div>
     </div>
+
 
   );
 }
