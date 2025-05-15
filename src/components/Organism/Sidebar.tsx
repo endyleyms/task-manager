@@ -2,9 +2,15 @@ import { Link, useLocation } from "react-router-dom";
 import Typography from "../Atom/Typography";
 import ButtonUi from "../Atom/ButtonUi";
 import { useProjects } from "../../context/ProjectContextType";
+import { useState } from "react";
+import Modal from "./Modal";
+import NewProject from "../Molecules/NewProject";
 
 
 export default function Sidebar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   const location = useLocation();
   const { state } = useProjects();
   const { projects, loading } = state;
@@ -43,9 +49,12 @@ export default function Sidebar() {
         </nav>
         <ButtonUi
           title="➕ New"
-          onClick={() => console.log('')}
+          onClick={() => setIsModalOpen(true)}
           type="secondary"
         />
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New Project">
+          <NewProject />
+        </Modal>
       </div>
       <div className="text-sm text-white text-center">
         © 2025 MyTask
