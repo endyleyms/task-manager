@@ -44,7 +44,7 @@ export default function TaskCard({ id, title, description, dueDate, status, prio
   const { handleEditTask, handleDeleteTask } = useActions();
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg w-[300px] h-[170px] border border-gray-100  flex flex-col justify-between hover:shadow-xl transition-shadow" style={{ padding: '10px' }}>
+    <div className="bg-white w-full rounded-2xl shadow-lg lg:w-[300px] h-[200px]  lg:h-[180px] border border-gray-100  flex flex-col justify-between items-center hover:shadow-xl transition-shadow" style={{ padding: '10px' }}>
       <div>
         <Typography
           text={title}
@@ -74,7 +74,7 @@ export default function TaskCard({ id, title, description, dueDate, status, prio
         </span>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full">
         <div className="flex items-center justify-evenly mt-2 w-2/3 gap-3">
           <ButtonUi
             onClick={() => setIsModalOpenTask(true)}

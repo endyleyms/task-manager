@@ -27,7 +27,7 @@ export default function Sidebar() {
 
 
   return (
-    <div className="w-[15%] h-full bg-white text-gray-800 fixed top-0 left-0 shadow-xl flex flex-col justify-between border-r border-gray-200 py-6 px-4">
+    <div className="w-[30%] md:w-[20%] z-10 lg:w-[13%] h-full bg-white text-gray-800 fixed top-0 left-0 shadow-xl flex flex-col justify-between border-r border-gray-200 py-6 px-4">
       <div className="flex flex-col gap-4">
         <div className="text-center mb-6">
           <Typography

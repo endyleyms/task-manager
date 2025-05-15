@@ -19,7 +19,7 @@ export default function Board({ tasks }: props) {
   }
 
   return (
-    <div className="flex gap-6 overflow-auto w-[90%]">
+    <div className="flex flex-col gap-6 overflow-auto w-[90%] lg:flex-row">
       <TaskColumn title="Pending" tasks={pending} />
       <TaskColumn title="Completed" tasks={completed} />
       <TaskColumn title="All" tasks={tasks} />

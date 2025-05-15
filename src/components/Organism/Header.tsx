@@ -16,6 +16,7 @@ interface props {
 }
 
 export default function Header({ project, filter, setFilter }: props) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenTask, setIsModalOpenTask] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -34,34 +35,19 @@ export default function Header({ project, filter, setFilter }: props) {
   ];
 
   return (
-    <header className="w-full h-[50px] bg-white shadow-md flex items-center justify-between px-0">
-      <div className="w-full flex items-center justify-evenly">
+    <header className="w-full bg-white shadow-md relative">
+      <div className="h-[50px] px-4 flex items-center justify-evenly">
         <Typography
           text={project.name ?? "Proyecto"}
           tag="h2"
           className="text-lg font-semibold text-gray-800"
         />
-        <div className="flex items-center gap-4 w-[30%]">
-          <div className="flex gap-2 w-full">
-            <ButtonUi
-              title="Edit"
-              type="secondary"
-              onClick={() => setIsModalOpen(true)}
-            />
-            <ButtonUi
-              title="Delete"
-              type="secondary"
-              onClick={() => setModalDelete(true)}
-            />
-            <ButtonUi
-              onClick={() => setIsModalOpenTask(true)}
-              title="New Task"
-              type="secondary"
-              className="bg-gray-100 hover:bg-gray-200 text-gray-800"
-            />
-          </div>
 
-          {/* Filtro */}
+        {/* Botones Desktop */}
+        <div className="hidden md:flex items-center gap-4 w-[50%]">
+          <ButtonUi title="Edit" type="secondary" onClick={() => setIsModalOpen(true)} />
+          <ButtonUi title="Delete" type="secondary" onClick={() => setModalDelete(true)} />
+          <ButtonUi title="New Task" type="secondary" onClick={() => setIsModalOpenTask(true)} />
           <Select
             label="Filter"
             value={filter}
@@ -69,19 +55,43 @@ export default function Header({ project, filter, setFilter }: props) {
             onChange={(val) => setFilter(val)}
           />
         </div>
+
+        {/* Botón hamburguesa mobile */}
+        <button
+          className="md:hidden p-2 text-gray-800"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          ☰
+        </button>
       </div>
-      {/* Modal */}
+
+      {/* Menú mobile desplegable */}
+      {mobileMenuOpen && (
+        <div className="md:hidden px-4 py-2 bg-white shadow-md flex flex-col gap-3 z-10">
+          <ButtonUi title="Edit" type="secondary" onClick={() => setIsModalOpen(true)} />
+          <ButtonUi title="Delete" type="secondary" onClick={() => setModalDelete(true)} />
+          <ButtonUi title="New Task" type="secondary" onClick={() => setIsModalOpenTask(true)} />
+          <Select
+            label="Filter"
+            value={filter}
+            options={options}
+            onChange={(val) => setFilter(val)}
+          />
+        </div>
+      )}
+
+      {/* Modales */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Edit Project">
         <CrudProject onClose={() => setIsModalOpen(false)} type="Edit" action={() => handleEditProject(project.id)} />
       </Modal>
       <Modal isOpen={modalDelete} onClose={() => setModalDelete(false)} title="Delete Project">
         <CrudProject onClose={() => setModalDelete(false)} type="Delete" action={() => handleDeleteProject(project.id)} />
       </Modal>
-
       <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="New Task">
         <CrudTask onClose={() => setIsModalOpenTask(false)} type="Create" action={() => handleAddTask(project.id)} />
       </Modal>
     </header>
+
 
   );
 }
