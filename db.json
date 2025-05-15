@@ -1,7 +1,7 @@
 {
-  "Projects":[
+  "Projects": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Proyecto 1",
       "tasks": [
         {
@@ -28,8 +28,13 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Proyecto 2",
+      "tasks": []
+    },
+    {
+      "id": "4ffd804b-3c14-4078-abca-88629653b032",
+      "name": "Nuevo Project",
       "tasks": []
     }
   ]

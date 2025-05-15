@@ -1,8 +1,9 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 import Sidebar from "./components/Organism/Sidebar";
 import Home from "./pages/Home";
 import { ProjectProvider } from "./context/ProjectContextType";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -18,13 +19,13 @@ function App() {
             {/* Contenido de la página */}
             <div className="flex-1 overflow-auto p-6">
               <Routes>
-                <Route path="/" element={<Navigate to="/project/proyecto1" />} />
                 <Route path="/project/:projectName" element={<Home />} />
               </Routes>
             </div>
           </div>
         </div>
       </BrowserRouter>
+      <ToastContainer />
     </ProjectProvider>
 
   )

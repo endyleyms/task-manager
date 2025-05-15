@@ -33,7 +33,10 @@ type Action =
   | { type: "SET_PROJECTS"; payload: Project[] }
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null }
-  | { type: 'SET_INPUT'; payload: string };
+  | { type: 'SET_INPUT'; payload: string }
+  | { type: 'NEW_PROJECT'; payload: Project }
+  | { type: 'UPDATE_PROJECT'; payload: Project }
+  | { type: 'DELETE_PROJECT'; payload: string };
 
 const initialState: State = {
   projects: [],
@@ -52,6 +55,23 @@ function reducer(state: State, action: Action): State {
       return { ...state, error: action.payload, loading: false };
     case 'SET_INPUT':
       return { ...state, value: action.payload };
+    case 'NEW_PROJECT':
+      return {
+        ...state,
+        projects: [...state.projects, action.payload],
+      };
+    case 'UPDATE_PROJECT':
+      return {
+        ...state,
+        projects: state.projects.map((proj) =>
+          proj.id === action.payload.id ? action.payload : proj
+        ),
+      };
+    case 'DELETE_PROJECT':
+      return {
+        ...state,
+        projects: state.projects.filter(p => p.id !== action.payload),
+      };
     default:
       return state;
   }

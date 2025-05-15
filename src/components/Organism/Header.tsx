@@ -6,6 +6,7 @@ import type { Project } from '../../context/ProjectContextType';
 import Modal from './Modal';
 import CrudProject from '../Molecules/CrudProject';
 import CrudTask from '../Molecules/Crudtask';
+import { useActions } from '../../hooks/useActions';
 
 interface props {
   project: Project;
@@ -17,7 +18,9 @@ interface props {
 export default function Header({ project, filter, setFilter }: props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenTask, setIsModalOpenTask] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
 
+  const { handleEditProject, handleDeleteProject } = useActions();
 
   const options = [
     { label: "All", value: "" },
@@ -38,12 +41,17 @@ export default function Header({ project, filter, setFilter }: props) {
           tag="h2"
           className="text-lg font-semibold text-gray-800"
         />
-        <div className="flex items-center gap-4 w-[25%]">
+        <div className="flex items-center gap-4 w-[30%]">
           <div className="flex gap-2 w-full">
             <ButtonUi
               title="Edit"
               type="secondary"
               onClick={() => setIsModalOpen(true)}
+            />
+            <ButtonUi
+              title="Delete"
+              type="secondary"
+              onClick={() => setModalDelete(true)}
             />
             <ButtonUi
               onClick={() => setIsModalOpenTask(true)}
@@ -64,7 +72,10 @@ export default function Header({ project, filter, setFilter }: props) {
       </div>
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Edit Project">
-        <CrudProject onClose={() => setIsModalOpen(false)} type="Edit" />
+        <CrudProject onClose={() => setIsModalOpen(false)} type="Edit" action={() => handleEditProject(project.id)} />
+      </Modal>
+      <Modal isOpen={modalDelete} onClose={() => setModalDelete(false)} title="Delete Project">
+        <CrudProject onClose={() => setModalDelete(false)} type="Delete" action={() => handleDeleteProject(project.id)} />
       </Modal>
 
       <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="New Task">

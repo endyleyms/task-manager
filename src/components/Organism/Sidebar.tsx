@@ -5,10 +5,13 @@ import { useProjects } from "../../context/ProjectContextType";
 import { useState } from "react";
 import Modal from "./Modal";
 import CrudProject from "../Molecules/CrudProject";
+import { useActions } from "../../hooks/useActions";
 
 
 export default function Sidebar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { handleAddProject } = useActions();
 
 
   const location = useLocation();
@@ -66,7 +69,7 @@ export default function Sidebar() {
 
         {/* Modal */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New Project">
-          <CrudProject onClose={() => setIsModalOpen(false)} type="Create" />
+          <CrudProject onClose={() => setIsModalOpen(false)} type="Create" action={handleAddProject} />
         </Modal>
       </div>
 
