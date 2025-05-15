@@ -1,7 +1,14 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "jsx": "react-jsx",                 
+    "esModuleInterop": true,           
+    "resolveJsonModule": true,         
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES6",
+    "strict": true,
+    "noEmit": true,
+    "types": ["jest", "node", "@testing-library/jest-dom"]
+  },
+  "include": ["src", "src/test"]       
 }

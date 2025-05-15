@@ -1,11 +1,19 @@
-if (typeof global.structuredClone === "undefined") {
-  global.structuredClone = (val) => JSON.parse(JSON.stringify(val));
+import '@testing-library/jest-dom';
+
+if (typeof (globalThis as any).structuredClone === 'undefined') {
+  (globalThis as any).structuredClone = (val: unknown) =>
+    JSON.parse(JSON.stringify(val));
 }
 
-global.matchMedia = global.matchMedia || function() {
-  return {
+(globalThis as any).matchMedia =
+  (globalThis as any).matchMedia ||
+  ((query: string): MediaQueryList => ({
     matches: false,
-    addListener: jest.fn(),
-    removeListener: jest.fn()
-  };
-};
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  }));

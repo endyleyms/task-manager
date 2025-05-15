@@ -22,7 +22,7 @@ export interface Project {
   tasks: Task[];
 }
 
-type State = {
+export type State = {
   projects: Project[];
   currentProject: Project | null;
   loading: boolean;
@@ -143,13 +143,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-interface ProjectContextType {
+export interface ProjectContextType {
   state: State;
   dispatch: React.Dispatch<Action>;
-  refreshProjects: () => void;
 }
 
-const ProjectContext = createContext<ProjectContextType | undefined>(
+export const ProjectContext = createContext<ProjectContextType | undefined>(
   undefined
 );
 
@@ -182,7 +181,7 @@ export const ProjectProvider = ({
   }, []);
 
   return (
-    <ProjectContext.Provider value={{ state, dispatch, refreshProjects: getProjects }}>
+    <ProjectContext.Provider value={{ state, dispatch, }}>
       {children}
     </ProjectContext.Provider>
   );
