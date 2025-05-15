@@ -13,8 +13,8 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-sm">
-      <div className="flex flex-col justify-evenly bg-white rounded-lg w-full max-w-md shadow-lg" style={{ backgroundColor: 'red' }}>
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+      <div className="flex flex-col justify-evenly bg-white rounded-lg w-full max-w-md shadow-lg">
+        <div className="flex items-center justify-between p-4" style={{ padding: '20px' }}>
           <Typography
             text={title}
             color="blue"

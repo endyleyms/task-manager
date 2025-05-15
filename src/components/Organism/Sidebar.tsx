@@ -4,7 +4,7 @@ import ButtonUi from "../Atom/ButtonUi";
 import { useProjects } from "../../context/ProjectContextType";
 import { useState } from "react";
 import Modal from "./Modal";
-import NewProject from "../Molecules/NewProject";
+import CrudProject from "../Molecules/CrudProject";
 
 
 export default function Sidebar() {
@@ -18,7 +18,7 @@ export default function Sidebar() {
   if (!projects) return <p>No hay proyectos</p>;
   const projectList = projects.length
     ? projects.map((p) => (
-      { name: `🗂️ ${p.name}`, path: `/project/${p.id}` }
+      { name: `${p.name}`, path: `/project/${p.id}` }
     ))
     : [];
 
@@ -66,7 +66,7 @@ export default function Sidebar() {
 
         {/* Modal */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New Project">
-          <NewProject />
+          <CrudProject onClose={() => setIsModalOpen(false)} type="Create" />
         </Modal>
       </div>
 

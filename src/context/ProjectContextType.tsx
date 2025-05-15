@@ -26,17 +26,20 @@ type State = {
   projects: Project[];
   loading: boolean;
   error: string | null;
+  value: string
 };
 
 type Action =
   | { type: "SET_PROJECTS"; payload: Project[] }
   | { type: "SET_LOADING"; payload: boolean }
-  | { type: "SET_ERROR"; payload: string | null };
+  | { type: "SET_ERROR"; payload: string | null }
+  | { type: 'SET_INPUT'; payload: string };
 
 const initialState: State = {
   projects: [],
   loading: false,
   error: null,
+  value: ''
 };
 
 function reducer(state: State, action: Action): State {
@@ -47,6 +50,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, loading: action.payload };
     case "SET_ERROR":
       return { ...state, error: action.payload, loading: false };
+    case 'SET_INPUT':
+      return { ...state, value: action.payload };
     default:
       return state;
   }
@@ -54,6 +59,7 @@ function reducer(state: State, action: Action): State {
 
 interface ProjectContextType {
   state: State;
+  dispatch: React.Dispatch<Action>;
   refreshProjects: () => void;
 }
 
@@ -90,7 +96,7 @@ export const ProjectProvider = ({
   }, []);
 
   return (
-    <ProjectContext.Provider value={{ state, refreshProjects: getProjects }}>
+    <ProjectContext.Provider value={{ state, dispatch, refreshProjects: getProjects }}>
       {children}
     </ProjectContext.Provider>
   );

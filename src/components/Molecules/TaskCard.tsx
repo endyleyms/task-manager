@@ -40,8 +40,7 @@ export default function TaskCard({
   onDelete,
 }: props) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg w-[300px] h-[170px] border border-gray-100 px-4 py-3 flex flex-col justify-between hover:shadow-xl transition-shadow">
-      {/* Título y descripción */}
+    <div className="bg-white rounded-2xl shadow-lg w-[300px] h-[170px] border border-gray-100  flex flex-col justify-between hover:shadow-xl transition-shadow" style={{ padding: '10px' }}>
       <div>
         <Typography
           text={title}
@@ -55,7 +54,6 @@ export default function TaskCard({
           />
         )}
 
-        {/* Fecha */}
         {dueDate && (
           <p className="text-sm text-gray-400">
             <span className="font-medium text-gray-500">Due:</span> {dueDate}
@@ -63,7 +61,6 @@ export default function TaskCard({
         )}
       </div>
 
-      {/* Estado y prioridad */}
       <div className="flex items-center justify-evenly mt-2">
         <span className={`text-sm font-semibold capitalize ${getStatusColor(status)}`}>
           {status}
@@ -73,7 +70,6 @@ export default function TaskCard({
         </span>
       </div>
 
-      {/* Botones */}
       <div className="flex justify-center">
         <div className="flex items-center justify-evenly mt-2 w-2/3 gap-3">
           <ButtonUi
