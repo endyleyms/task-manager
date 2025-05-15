@@ -15,10 +15,11 @@ Aplicación de gestion de tareas que permite al usuario admnistrar sus proyectos
 
 ## Funcionalidades
 
-- Real-time detection of correct and incorrect letters.  
-- WPM (Words Per Minute) calculation.  
-- Score ranking.  
-- Typing state management using React Context.  
+- Responsive Design
+- Project Crud
+- Crud of tasks by project
+- Filter tasks by status, date and priority
+- React Context status control.
 - Unit testing.
 
 - Diseño responsivo
