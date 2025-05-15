@@ -31,8 +31,8 @@ Aplicación de gestion de tareas que permite al usuario admnistrar sus proyectos
 ## Instalación
 
 ```bash
-git clone
-cd 
+git clone https://github.com/endyleyms/task-manager.git
+cd task-manager
 npm install
 npm run start
 
