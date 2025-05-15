@@ -17,6 +17,14 @@
           "title": "Revisar presupuesto",
           "status": "pending",
           "priority": "low"
+        },
+        {
+          "id": "22b09515-58f3-43fb-845c-d37a4a006afd",
+          "title": "nueva",
+          "description": "Prueba de agregar task a un project",
+          "dueDate": "2025-05-22",
+          "status": "pending",
+          "priority": "low"
         }
       ]
     },
@@ -29,6 +37,20 @@
           "title": "editar",
           "description": "",
           "dueDate": "",
+          "status": "pending",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "f87f79fc-95ae-42a9-a877-a14dd28ac979",
+      "name": "Proyecto prueba",
+      "tasks": [
+        {
+          "id": "0974053f-f1c7-4850-bbc8-7efc67d0a299",
+          "title": "First task",
+          "description": "Prueba de agregar task a un project",
+          "dueDate": "2025-05-29",
           "status": "pending",
           "priority": "low"
         }
