@@ -4,7 +4,7 @@
     "esModuleInterop": true,           
     "resolveJsonModule": true,         
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "target": "ES6",
     "strict": true,
     "noEmit": true,
