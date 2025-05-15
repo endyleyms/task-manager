@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
+type FetchMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface FetchOptions {
   url: string;

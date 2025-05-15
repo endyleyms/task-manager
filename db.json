@@ -13,13 +13,6 @@
           "priority": "medium"
         },
         {
-          "id": "2",
-          "title": "Enviar informe",
-          "dueDate": "2025-05-15",
-          "status": "completed",
-          "priority": "high"
-        },
-        {
           "id": "3",
           "title": "Revisar presupuesto",
           "status": "pending",
@@ -30,12 +23,16 @@
     {
       "id": "2",
       "name": "Proyecto 2",
-      "tasks": []
-    },
-    {
-      "id": "4ffd804b-3c14-4078-abca-88629653b032",
-      "name": "Nuevo Project",
-      "tasks": []
+      "tasks": [
+        {
+          "id": "1ae92486-80eb-48f6-9a48-fd1747447c2d",
+          "title": "editar",
+          "description": "",
+          "dueDate": "",
+          "status": "pending",
+          "priority": "low"
+        }
+      ]
     }
   ]
 }

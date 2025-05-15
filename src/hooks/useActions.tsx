@@ -12,6 +12,10 @@ export function useActions() {
     dispatch({ type: "SET_INPUT", payload: value });
   }
 
+  const handleChangeTask = (field: string, value: any) => {
+    dispatch({ type: 'SET_FIELD', field, value });
+  }
+
 
   const filterTasks = (tasks: Task[], filter: string): Task[] => {
     if (!filter) return tasks;
@@ -121,8 +125,99 @@ export function useActions() {
     }
   };
 
+  const handleAddTask = async (projectId: string) => {
+    const newTask = {
+      id: crypto.randomUUID(),
+      title: state.title,
+      description: state.description,
+      dueDate: state.dueDate,
+      status: state.status,
+      priority: state.priority,
+    };
+
+    try {
+      const updatedProject = await fetchData({
+        url: `http://localhost:3001/Projects/${projectId}`,
+        method: "PATCH",
+        body: {
+          tasks: [
+            ...(state.projects.find(p => p.id === projectId)?.tasks || []),
+            newTask,
+          ],
+        },
+        onError: (err) => toast.error("Error al agregar la tarea: " + err.message),
+      });
+
+      if (updatedProject) {
+        toast.success("✅ Tarea agregada exitosamente");
+        dispatch({ type: 'ADD_TASK', payload: { projectId, task: newTask } });
+      }
+    } catch (error) {
+      console.error("❌ Error en la conexión:", error);
+      toast.error("Error de conexión al agregar la tarea");
+    }
+  };
+
+  const handleEditTask = async (projectId: string, taskId: string) => {
+
+    const updatedTask = {
+      id: taskId,
+      title: state.title,
+      description: state.description,
+      dueDate: state.dueDate,
+      status: state.status,
+      priority: state.priority,
+    };
+
+    try {
+      const result = await fetchData({
+        url: `http://localhost:3001/Projects/${projectId}`,
+        method: 'PATCH',
+        body: {
+          tasks: state.projects.find(p => p.id === projectId)?.tasks.map(task =>
+            task.id === updatedTask.id ? updatedTask : task
+          ),
+        },
+        onError: (err) => {
+          toast.error('Error al editar la tarea: ' + err.message);
+        },
+      });
+
+      if (result) {
+        dispatch({ type: 'EDIT_TASK', payload: { projectId, task: updatedTask } });
+        toast.success('✅ Tarea actualizada correctamente');
+      }
+    } catch (error) {
+      console.error('❌ Error en la conexión:', error);
+      toast.error('Error de conexión al editar la tarea');
+    }
+  };
+
+  const handleDeleteTask = async (projectId: string, taskId: string,) => {
+    try {
+      const filteredTasks = state.projects.find(p => p.id === projectId)?.tasks.filter(task => task.id !== taskId);
+
+      const result = await fetchData({
+        url: `http://localhost:3001/Projects/${projectId}`,
+        method: 'PATCH',
+        body: { tasks: filteredTasks },
+        onError: (err) => {
+          toast.error('Error al eliminar la tarea: ' + err.message);
+        },
+      });
+
+      if (result) {
+        dispatch({ type: 'DELETE_TASK', payload: { projectId, taskId } });
+        toast.success('🗑️ Tarea eliminada correctamente');
+      }
+    } catch (error) {
+      console.error('❌ Error en la conexión:', error);
+      toast.error('Error de conexión al eliminar la tarea');
+    }
+  };
 
 
-  return { handleChange, filterTasks, handleAddProject, handleEditProject, handleDeleteProject }
+
+  return { handleChange, filterTasks, handleAddProject, handleEditProject, handleDeleteProject, handleChangeTask, handleAddTask, handleEditTask, handleDeleteTask }
 }
 

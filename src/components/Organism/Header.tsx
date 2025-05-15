@@ -1,12 +1,12 @@
-import Typography from '../Atom/Typography';
-import ButtonUi from '../Atom/ButtonUi';
 import { useState } from 'react';
-import Select from './Select';
-import type { Project } from '../../context/ProjectContextType';
 import Modal from './Modal';
-import CrudProject from '../Molecules/CrudProject';
+import Select from './Select';
+import ButtonUi from '../Atom/ButtonUi';
+import Typography from '../Atom/Typography';
 import CrudTask from '../Molecules/Crudtask';
+import CrudProject from '../Molecules/CrudProject';
 import { useActions } from '../../hooks/useActions';
+import type { Project } from '../../context/ProjectContextType';
 
 interface props {
   project: Project;
@@ -20,7 +20,7 @@ export default function Header({ project, filter, setFilter }: props) {
   const [isModalOpenTask, setIsModalOpenTask] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
 
-  const { handleEditProject, handleDeleteProject } = useActions();
+  const { handleEditProject, handleDeleteProject, handleAddTask } = useActions();
 
   const options = [
     { label: "All", value: "" },
@@ -79,7 +79,7 @@ export default function Header({ project, filter, setFilter }: props) {
       </Modal>
 
       <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="New Task">
-        <CrudTask onClose={() => setIsModalOpenTask(false)} type="Create" />
+        <CrudTask onClose={() => setIsModalOpenTask(false)} type="Create" action={() => handleAddTask(project.id)} />
       </Modal>
     </header>
 

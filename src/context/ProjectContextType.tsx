@@ -24,31 +24,53 @@ export interface Project {
 
 type State = {
   projects: Project[];
+  currentProject: Project | null;
   loading: boolean;
   error: string | null;
-  value: string
+  value: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  status: "pending" | "completed";
+  priority: "low" | "medium" | "high";
 };
 
 type Action =
   | { type: "SET_PROJECTS"; payload: Project[] }
+  | { type: 'SET_CURRENT_PROJECT'; payload: Project | null }
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null }
   | { type: 'SET_INPUT'; payload: string }
   | { type: 'NEW_PROJECT'; payload: Project }
   | { type: 'UPDATE_PROJECT'; payload: Project }
-  | { type: 'DELETE_PROJECT'; payload: string };
+  | { type: 'DELETE_PROJECT'; payload: string }
+  | { type: 'SET_FIELD'; field: string; value: any }
+  | { type: 'ADD_TASK'; payload: { projectId: string; task: Task } }
+  | { type: 'EDIT_TASK'; payload: { projectId: string; task: Task } }
+  | { type: 'DELETE_TASK'; payload: { projectId: string; taskId: string } }
 
 const initialState: State = {
   projects: [],
+  currentProject: null,
   loading: false,
   error: null,
-  value: ''
+  value: '',
+  title: '',
+  description: '',
+  dueDate: '',
+  status: 'pending',
+  priority: 'low',
 };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "SET_PROJECTS":
       return { ...state, projects: action.payload, loading: false };
+    case 'SET_CURRENT_PROJECT':
+      return {
+        ...state,
+        currentProject: action.payload,
+      };
     case "SET_LOADING":
       return { ...state, loading: action.payload };
     case "SET_ERROR":
@@ -71,6 +93,50 @@ function reducer(state: State, action: Action): State {
       return {
         ...state,
         projects: state.projects.filter(p => p.id !== action.payload),
+      };
+    case 'SET_FIELD': //manejo de campos generales del fomulario
+      return {
+        ...state,
+        [action.field]: action.value,
+      };
+    case 'ADD_TASK':
+      return {
+        ...state,
+        projects: state.projects.map(project =>
+          project.id === action.payload.projectId
+            ? {
+              ...project,
+              tasks: [...project.tasks, action.payload.task],
+            }
+            : project
+        ),
+      };
+    case 'EDIT_TASK':
+      return {
+        ...state,
+        projects: state.projects.map((project) =>
+          project.id === action.payload.projectId
+            ? {
+              ...project,
+              tasks: project.tasks.map((t) =>
+                t.id === action.payload.task.id ? action.payload.task : t
+              ),
+            }
+            : project
+        ),
+      };
+
+    case 'DELETE_TASK':
+      return {
+        ...state,
+        projects: state.projects.map((project) =>
+          project.id === action.payload.projectId
+            ? {
+              ...project,
+              tasks: project.tasks.filter((t) => t.id !== action.payload.taskId),
+            }
+            : project
+        ),
       };
     default:
       return state;

@@ -1,13 +1,16 @@
 import { useState } from "react";
+import CrudTask from "./Crudtask";
+import Modal from "../Organism/Modal";
 import ButtonUi from "../Atom/ButtonUi";
 import Typography from "../Atom/Typography";
-import Modal from "../Organism/Modal";
-import CrudTask from "./Crudtask";
+import { useActions } from "../../hooks/useActions";
+import { useProjects } from "../../context/ProjectContextType";
 
 type Status = "pending" | "completed";
 type Priority = "low" | "medium" | "high";
 
 interface props {
+  id: string,
   title: string;
   description?: string;
   dueDate?: string; // Formato: 'YYYY-MM-DD'
@@ -31,10 +34,15 @@ const getPriorityColor = (priority: Priority) => {
   }
 };
 
-export default function TaskCard({ title, description, dueDate, status, priority }: props) {
+export default function TaskCard({ id, title, description, dueDate, status, priority }: props) {
 
   const [isModalOpenTask, setIsModalOpenTask] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+
+  const { state, } = useProjects();
+  const { currentProject } = state;
+  const { handleEditTask, handleDeleteTask } = useActions();
+
   return (
     <div className="bg-white rounded-2xl shadow-lg w-[300px] h-[170px] border border-gray-100  flex flex-col justify-between hover:shadow-xl transition-shadow" style={{ padding: '10px' }}>
       <div>
@@ -82,13 +90,16 @@ export default function TaskCard({ title, description, dueDate, status, priority
           />
         </div>
       </div>
-
-      <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="Edit Task">
-        <CrudTask onClose={() => setIsModalOpenTask(false)} type="Edit" />
-      </Modal>
-      <Modal isOpen={deleteModal} onClose={() => setDeleteModal(false)} title="Delete Task">
-        <CrudTask onClose={() => setDeleteModal(false)} type="Delete" />
-      </Modal>
+      {currentProject && (
+        <>
+          <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="Edit Task">
+            <CrudTask onClose={() => setIsModalOpenTask(false)} type="Edit" action={() => handleEditTask(currentProject.id, id)} />
+          </Modal>
+          <Modal isOpen={deleteModal} onClose={() => setDeleteModal(false)} title="Delete Task">
+            <CrudTask onClose={() => setDeleteModal(false)} type="Delete" action={() => handleDeleteTask(currentProject.id, id)} />
+          </Modal>
+        </>
+      )}
     </div>
 
 
