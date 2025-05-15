@@ -1,9 +1,9 @@
-import Header from '../components/Organism/Header'
+import Board from '../components/Organism/Board'
 
 export default function Home() {
   return (
-    <div>Home
-      <Header onEdit={() => (console.log('hi'))} onNewTask={() => (console.log('hi'))} />
+    <div className='w-full h-full'>
+      <Board />
     </div>
   )
 }
