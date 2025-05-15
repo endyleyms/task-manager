@@ -1,8 +1,7 @@
 import InputUi from "../Atom/InputUi";
 import ButtonUi from "../Atom/ButtonUi"
 import { useProjects } from "../../context/ProjectContextType";
-import { useActions } from "../../utils/useActions";
-const { state } = useProjects();
+import { useActions } from "../../hooks/useActions";
 
 
 interface Props {
@@ -11,6 +10,7 @@ interface Props {
 }
 
 export default function CrudProject({ onClose, type = 'Edit' }: Props) {
+  const { state } = useProjects();
   const { handleChange } = useActions();
 
   return (

@@ -3,6 +3,9 @@ import ButtonUi from '../Atom/ButtonUi';
 import { useState } from 'react';
 import Select from './Select';
 import type { Project } from '../../context/ProjectContextType';
+import Modal from './Modal';
+import CrudProject from '../Molecules/CrudProject';
+import CrudTask from '../Molecules/Crudtask';
 
 interface props {
   onEdit: () => void,
@@ -13,6 +16,8 @@ interface props {
 
 export default function Header({ onEdit, onNewTask, project }: props) {
   const [filter, setFilter] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenTask, setIsModalOpenTask] = useState(false);
 
 
   const options = [
@@ -37,12 +42,12 @@ export default function Header({ onEdit, onNewTask, project }: props) {
         <div className="flex items-center gap-4 w-[25%]">
           <div className="flex gap-2 w-full">
             <ButtonUi
-              onClick={onEdit}
               title="Edit"
               type="secondary"
+              onClick={() => setIsModalOpen(true)}
             />
             <ButtonUi
-              onClick={onNewTask}
+              onClick={() => setIsModalOpenTask(true)}
               title="New Task"
               type="secondary"
               className="bg-gray-100 hover:bg-gray-200 text-gray-800"
@@ -58,6 +63,14 @@ export default function Header({ onEdit, onNewTask, project }: props) {
           />
         </div>
       </div>
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Edit Project">
+        <CrudProject onClose={() => setIsModalOpen(false)} type="Edit" />
+      </Modal>
+
+      <Modal isOpen={isModalOpenTask} onClose={() => setIsModalOpenTask(false)} title="New Task">
+        <CrudTask onClose={() => setIsModalOpenTask(false)} type="Create" />
+      </Modal>
     </header>
 
   );
